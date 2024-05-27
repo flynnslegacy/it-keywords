@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # Charger les données
-xls = pd.ExcelFile('./dictionnaire-ensitech.xlsx')
+xls = pd.ExcelFile('dictionnaire-ensitech.xlsx')
 datas_brutes_df = pd.read_excel(xls, sheet_name='datas-brutes')
 definitions_df = pd.read_excel(xls, sheet_name='definitions')
 
