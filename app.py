@@ -2,9 +2,13 @@ import streamlit as st
 import pandas as pd
 
 # Charger les données
-xls = pd.ExcelFile('./dictionnaire-ensitech.xlsx')
-datas_brutes_df = pd.read_excel(xls, sheet_name='datas-brutes')
-definitions_df = pd.read_excel(xls, sheet_name='definitions')
+file_path = 'dictionnaire-ensitech.xlsx'
+datas_brutes_df = pd.read_excel(file_path, sheet_name='datas-brutes')
+definitions_df = pd.read_excel(file_path, sheet_name='definitions')
+
+# Extraire les mots clés uniques
+keywords = pd.concat([datas_brutes_df['Mot Clés'], definitions_df['Mot Clés']]).dropna().unique()
+keywords = [''] + list(keywords)  # Ajouter une option vide
 
 # Fonction pour obtenir les informations par mot-clé
 def get_info_by_keyword(keyword):
@@ -25,7 +29,8 @@ def get_info_by_keyword(keyword):
 # Interface utilisateur
 st.title('Dictionnaire EnsiTech')
 
-keyword = st.text_input('Entrez un mot-clé :')
+# Utiliser un selectbox pour l'autofill des mots clés
+keyword = st.selectbox('Entrez ou sélectionnez un mot-clé :', options=keywords)
 
 if keyword:
     definition, formations, metiers, competences = get_info_by_keyword(keyword)
@@ -34,13 +39,16 @@ if keyword:
     st.write(definition)
     
     st.subheader('Formations')
-    st.write(', '.join(formations))
+    for formation in formations:
+        st.write(f"- {formation}")
     
     st.subheader('Métiers')
-    st.write(', '.join(metiers))
+    for metier in metiers:
+        st.write(f"- {metier}")
     
     st.subheader('Compétences')
-    st.write(', '.join(competences))
+    for competence in competences:
+        st.write(f"- {competence}")
 
 # Pour exécuter l'application, utilisez la commande suivante dans le terminal:
 # streamlit run app.py
