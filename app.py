@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # Charger les données
+<<<<<<< HEAD
 file_path = 'dictionnaire-ensitech.xlsx'
 datas_brutes_df = pd.read_excel(file_path, sheet_name='datas-brutes')
 definitions_df = pd.read_excel(file_path, sheet_name='definitions')
@@ -9,6 +10,11 @@ definitions_df = pd.read_excel(file_path, sheet_name='definitions')
 # Extraire les mots clés uniques
 keywords = pd.concat([datas_brutes_df['Mot Clés'], definitions_df['Mot Clés']]).dropna().unique()
 keywords = [''] + list(keywords)  # Ajouter une option vide
+=======
+xls = pd.ExcelFile('dictionnaire-ensitech.xlsx')
+datas_brutes_df = pd.read_excel(xls, sheet_name='datas-brutes')
+definitions_df = pd.read_excel(xls, sheet_name='definitions')
+>>>>>>> fab61887d6c19339b064633881ffcde0185191a5
 
 # Fonction pour obtenir les informations par mot-clé
 def get_info_by_keyword(keyword):
