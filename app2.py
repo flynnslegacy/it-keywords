@@ -44,7 +44,7 @@ def get_info_by_category(category, value):
     return definition_text, formations, metiers, competences
 
 # Interface utilisateur
-st.title('Dictionnaire EnsiTech')
+st.title('Dictionnaire ENSITECH')
 
 # Sélection de la catégorie de recherche avec une option vide
 category = st.selectbox('Choisissez une catégorie de recherche :', ['', 'Mot Clé', 'Formation', 'Métier', 'Compétence'])
